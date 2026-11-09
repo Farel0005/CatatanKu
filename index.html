@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CatatanKu: catatan dan soal latihan kuliah, satu tempat.">
+  <title>CatatanKu - Beranda</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Bingkai ponsel: lebar maksimum 390 px, di tengah pada layar besar -->
+  <div class="app">
+
+    <!-- Komponen 1: Header (bilah atas) -->
+    <header class="app-bar">
+      <h1 class="app-bar__title">CatatanKu</h1>
+      <button class="avatar" id="tombol-profil" type="button" aria-label="Buka profil"></button>
+    </header>
+
+    <main class="content">
+
+      <!-- Komponen 2: Kolom pencarian -->
+      <form class="search" role="search" id="form-cari">
+        <label class="visually-hidden" for="cari">Cari mata kuliah, dosen, atau materi</label>
+        <span class="search__icon" aria-hidden="true">&#128269;</span>
+        <input class="search__input" id="cari" type="search" placeholder="Cari mata kuliah, dosen, atau materi" autocomplete="off">
+      </form>
+
+      <!-- Komponen 3: Chip mata kuliah (filter) -->
+      <section aria-labelledby="judul-matkul">
+        <h2 class="section-title" id="judul-matkul">Mata kuliahmu</h2>
+        <div class="chips" id="chips" role="group" aria-label="Filter mata kuliah">
+          <button class="chip" type="button" aria-pressed="false">Statistika Dasar</button>
+          <button class="chip" type="button" aria-pressed="false">Akuntansi</button>
+          <button class="chip" type="button" aria-pressed="false">Manajemen</button>
+        </div>
+      </section>
+
+      <!-- Komponen 4: Daftar kartu materi (diisi oleh script.js) -->
+      <section aria-labelledby="judul-materi">
+        <h2 class="section-title" id="judul-materi">Materi untuk mata kuliahmu</h2>
+        <p class="result-info visually-hidden" id="info-hasil" role="status" aria-live="polite"></p>
+        <ul class="card-list" id="daftar-materi"></ul>
+        <p class="empty" id="kosong" hidden>Materi tidak ditemukan. Coba kata kunci lain.</p>
+      </section>
+    </main>
+
+    <!-- Komponen 5: Navigasi tab bawah -->
+    <footer class="bottom-nav">
+      <nav aria-label="Navigasi utama">
+        <ul class="tabs" id="tabs">
+          <li><a class="tab" href="#beranda" data-tab="Beranda" aria-current="page"><span class="tab__dot" aria-hidden="true"></span>Beranda</a></li>
+          <li><a class="tab" href="#cari" data-tab="Cari"><span class="tab__dot" aria-hidden="true"></span>Cari</a></li>
+          <li><a class="tab" href="#unggah" data-tab="Unggah"><span class="tab__dot" aria-hidden="true"></span>Unggah</a></li>
+          <li><a class="tab" href="#profil" data-tab="Profil"><span class="tab__dot" aria-hidden="true"></span>Profil</a></li>
+        </ul>
+      </nav>
+    </footer>
+
+    <!-- Komponen 6: Toast pesan singkat -->
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

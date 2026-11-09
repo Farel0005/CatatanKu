@@ -1,0 +1,195 @@
+/* ==========================================================
+   CatatanKu - Beranda
+   Gaya wireframe: putih, abu-abu netral, biru hanya untuk aksi
+   ========================================================== */
+
+/* ---- Custom property: warna, spacing, radius ---- */
+:root {
+  --warna-teks: #1f1f1f;
+  --warna-teks-sekunder: #5f6368;
+  --warna-latar: #ffffff;
+  --warna-latar-lembut: #f3f4f6;
+  --warna-garis: #bdbdbd;
+  --warna-garis-tegas: #757575;
+  --warna-aksi: #1d4ed8;
+  --warna-ikon-nonaktif: #bdbdbd;
+  --warna-hijau-teks: #0b6b3a;
+  --warna-hijau-latar: #e3f4ea;
+
+  /* Skala spacing kelipatan 8 px */
+  --s1: 8px;
+  --s2: 16px;
+  --s3: 24px;
+  --s4: 32px;
+
+  --radius-kartu: 16px;
+  --radius-chip: 24px;
+  --tinggi-tab: 64px;
+  --tinggi-bilah: 56px;
+  --target-ketuk: 44px;
+}
+
+/* ---- Reset ringan ---- */
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  color: var(--warna-teks);
+  background: var(--warna-latar-lembut);
+}
+h1, h2, h3, p, ul { margin: 0; padding: 0; }
+ul { list-style: none; }
+button { font: inherit; color: inherit; cursor: pointer; }
+
+/* Teks hanya untuk pembaca layar */
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* Fokus keyboard yang jelas */
+:focus-visible { outline: 3px solid var(--warna-aksi); outline-offset: 2px; }
+
+/* ---- Bingkai aplikasi ---- */
+.app {
+  position: relative;
+  max-width: 390px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: var(--warna-latar);
+  /* ruang agar isi tidak tertutup tab bawah */
+  padding-bottom: calc(var(--tinggi-tab) + var(--s2));
+}
+
+/* ---- Komponen 1: Header ---- */
+.app-bar {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; align-items: center; justify-content: space-between;
+  height: var(--tinggi-bilah);
+  padding: 0 var(--s2);
+  background: var(--warna-latar);
+  border-bottom: 1px solid var(--warna-garis);
+}
+.app-bar__title { font-size: 18px; font-weight: 700; }
+.avatar {
+  width: var(--target-ketuk); height: var(--target-ketuk);
+  border-radius: 50%;
+  border: 1px solid var(--warna-garis-tegas);
+  background: var(--warna-latar-lembut);
+}
+
+.content { padding: var(--s2); display: flex; flex-direction: column; gap: var(--s2); }
+.section-title { font-size: 14px; font-weight: 700; margin-bottom: var(--s1); }
+
+/* ---- Komponen 2: Pencarian ---- */
+.search {
+  display: flex; align-items: center; gap: var(--s1);
+  min-height: 48px;
+  padding: 0 var(--s2);
+  background: var(--warna-latar-lembut);
+  border: 1px solid var(--warna-garis-tegas);
+  border-radius: 24px;
+}
+.search:focus-within { outline: 3px solid var(--warna-aksi); outline-offset: 2px; }
+.search__input {
+  flex: 1; min-width: 0;
+  border: 0; background: transparent;
+  font: inherit; font-size: 14px; color: var(--warna-teks);
+  min-height: var(--target-ketuk);
+}
+.search__input:focus { outline: none; }
+.search__input::placeholder { color: var(--warna-teks-sekunder); }
+
+/* ---- Komponen 3: Chip ---- */
+.chips {
+  display: flex; gap: var(--s1);
+  overflow-x: auto;                       /* bisa digeser ke samping */
+  margin-right: calc(var(--s2) * -1);     /* chip terakhir terpotong, tanda bisa digulir */
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+.chips::-webkit-scrollbar { display: none; }
+.chip {
+  flex: 0 0 auto;
+  min-height: var(--target-ketuk);
+  padding: 0 var(--s3);
+  background: var(--warna-latar);
+  border: 1px solid var(--warna-garis-tegas);
+  border-radius: var(--radius-chip);
+  font-size: 14px;
+}
+.chip[aria-pressed="true"] {
+  background: var(--warna-aksi);
+  border-color: var(--warna-aksi);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ---- Komponen 4: Kartu materi ---- */
+.result-info { font-size: 12px; color: var(--warna-teks-sekunder); margin-bottom: var(--s1); }
+.card-list { display: flex; flex-direction: column; gap: var(--s2); }
+.card {
+  display: flex; gap: var(--s2);
+  padding: var(--s2);
+  border: 1px solid var(--warna-garis);
+  border-radius: var(--radius-kartu);
+  background: var(--warna-latar);
+}
+.card:hover { border-color: var(--warna-garis-tegas); }
+.card__thumb {
+  flex: 0 0 64px; height: 80px;
+  display: grid; place-items: center;
+  background: var(--warna-latar-lembut);
+  border-radius: 8px;
+  font-size: 12px; font-weight: 700;
+  color: var(--warna-teks-sekunder);
+}
+.card__body { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.card__title { font-size: 16px; font-weight: 700; line-height: 1.25; }
+.card__meta { font-size: 13px; color: var(--warna-teks-sekunder); }
+.card__rating { font-size: 13px; }
+.badge {
+  align-self: flex-start;
+  padding: 2px 10px;
+  border-radius: 12px;
+  background: var(--warna-hijau-latar);
+  color: var(--warna-hijau-teks);
+  font-size: 13px; font-weight: 700;
+}
+.empty { padding: var(--s3) 0; text-align: center; color: var(--warna-teks-sekunder); }
+
+/* ---- Komponen 5: Tab bawah ---- */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: 390px;
+  height: var(--tinggi-tab);
+  background: var(--warna-latar);
+  border-top: 1px solid var(--warna-garis);
+  z-index: 10;
+}
+.tabs { display: grid; grid-template-columns: repeat(4, 1fr); height: 100%; }
+.tab {
+  height: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  font-size: 12px; text-decoration: none;
+  color: var(--warna-teks-sekunder);
+}
+.tab__dot { width: 24px; height: 24px; border-radius: 50%; background: var(--warna-ikon-nonaktif); }
+.tab[aria-current="page"] { color: var(--warna-aksi); font-weight: 700; }
+.tab[aria-current="page"] .tab__dot { background: var(--warna-aksi); }
+
+/* ---- Komponen 6: Toast ---- */
+.toast {
+  position: fixed; left: 50%; bottom: calc(var(--tinggi-tab) + var(--s2));
+  transform: translateX(-50%);
+  max-width: 340px;
+  padding: var(--s1) var(--s2);
+  background: var(--warna-teks); color: #fff;
+  border-radius: 8px; font-size: 13px;
+  z-index: 20;
+}
+.toast[hidden] { display: none; }
+
+/* Hormati pengguna yang mengurangi animasi */
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
